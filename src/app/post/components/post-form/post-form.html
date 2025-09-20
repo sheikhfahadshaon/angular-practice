@@ -1,0 +1,52 @@
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="TraineeName">Trainee Name: </label>
+        <input id="TraineeName" type="text" class="form-control" formControlName="name">
+        @if(postForm.get('name')?.invalid && postForm.get('Name')?.touched) {
+            <div class="text-danger">
+                Name is required.
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label for="Email">Trainee Email: </label>
+        <input id="Email" type="text" class="form-control" formControlName="email">
+        @if(postForm.get('email')?.invalid && postForm.get('email')?.touched) {
+            <div class="text-danger">
+                Email is required.
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label for="universityId">University: </label>
+        <select class = "form-select" formControlName="universityId" id="universityId">
+            <option [ngValue]="null" disabled>Select a university</option>
+
+            @for(uni of universities; track uni.id){
+                <option [ngValue]="uni.id">{{ uni.name }}</option>
+            }
+        </select>
+        @if(postForm.get('universityId')?.invalid && postForm.get('universityId')?.touched) {
+            <div class="text-danger">
+                University is required.
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label for="trainningPeriodId">Trainning Period: </label>
+        <select class = "form-select" formControlName="trainningPeriodId" id="trainningPeriodId">
+            <option [ngValue]="null" disabled>Select a trainning period</option>
+
+            @for(period of trainningPeriods; track period.id){
+                <option [ngValue]="period.id">{{period.startDate}} - {{period.endDate}}</option>
+            }
+        </select>
+        @if(postForm.get('trainningPeriodId')?.invalid && postForm.get('trainningPeriodId')?.touched) {
+            <div class="text-danger">
+                Trainning Period is required.
+            </div>
+        }
+    </div>
+    
+    <button type="submit" class="btn btn-sm btn-success mt-3" [disabled]="!postForm.valid">Create Trainee</button>
+</form>

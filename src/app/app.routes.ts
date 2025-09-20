@@ -9,4 +9,11 @@ export const routes: Routes = [
     {
         path: 'about', component: About
     },
+    {
+        path: 'users', loadComponent: () => import('./users/components/user-list/user-list').then(u => u.UserList)
+    },
+    {
+        path: 'posts',
+        loadChildren: () => import('./post/post-module').then(m => m.PostModule)
+    }
 ];
